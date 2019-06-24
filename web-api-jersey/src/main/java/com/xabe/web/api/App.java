@@ -23,11 +23,11 @@ public class App {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
         java.util.logging.Logger.getLogger("global").setLevel(Level.ALL);
-        Runtime.getRuntime().addShutdownHook( new Thread( () ->  server.shutdownNow() ));
         final ResourceConfig rc = new CustomResourceConfig();
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create(getUriInfo("http" ,8008)), rc,false);
         server.getServerConfiguration().setAllowPayloadForUndefinedHttpMethods(true);
         server.start();
+        Runtime.getRuntime().addShutdownHook( new Thread( server::shutdown ));
         LoggerFactory.getLogger(App.class).info( "Stop the application using CTRL+C" );
         Thread.currentThread().join();
     }

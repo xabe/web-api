@@ -59,7 +59,7 @@
             <AppenderRef ref="Trace"/>
         </Logger>
 
-        <Logger name="org.glassfish" level="INFO" additivity="false">
+        <Logger name="io.helidon" level="TRACE" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="Trace"/>
         </Logger>

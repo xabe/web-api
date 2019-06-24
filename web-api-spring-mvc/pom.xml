@@ -220,7 +220,6 @@
                                 -Dlog4j.configurationFile=file://${app.config.dir}${file.separator}log4j2.xml
                                 -Dapp.log.path=${tmp.dir}
                                 -Dapp.log.name=${app.name}
-                                ${jacoco.argline.it}
                             </jvmArguments>
                         </configuration>
                     </execution>

@@ -12,6 +12,6 @@ public class PersonNotFoundException extends AbstractThrowableProblem {
     public PersonNotFoundException(String personId, URI instance) {
         super(TYPE, "Person is not found", Status.NOT_FOUND,
                 "Person with identifier '" + personId + "' is not found", instance,
-                null, Map.of("id", personId));
+                null, Map.of("personId", personId));
     }
 }

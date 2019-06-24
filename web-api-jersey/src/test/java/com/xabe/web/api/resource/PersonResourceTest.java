@@ -85,7 +85,7 @@ class PersonResourceTest {
         assertThat(personNotFoundException.getTitle(),is("Person is not found"));
         assertThat(personNotFoundException.getDetail(),is("Person with identifier '" + personId + "' is not found"));
         assertThat(personNotFoundException.getCause(),is(nullValue()));
-        assertThat(personNotFoundException.getParameters(),is(Map.of("id",personId)));
+        assertThat(personNotFoundException.getParameters(),is(Map.of("personId",personId)));
 
     }
     
@@ -131,7 +131,7 @@ class PersonResourceTest {
         assertThat(problem.getTitle(),is("The person is not unique"));
         assertThat(problem.getDetail(),is("Error create person"));
         assertThat(problem.getCause(),is(nullValue()));
-        assertThat(problem.getParameters(),is(Map.of("id","1")));
+        assertThat(problem.getParameters(),is(Map.of("personId","1")));
     }
     
     @Test
@@ -172,7 +172,7 @@ class PersonResourceTest {
         assertThat(personNotFoundException.getTitle(),is("Person is not found"));
         assertThat(personNotFoundException.getDetail(),is("Person with identifier '" + personId + "' is not found"));
         assertThat(personNotFoundException.getCause(),is(nullValue()));
-        assertThat(personNotFoundException.getParameters(),is(Map.of("id",personId)));
+        assertThat(personNotFoundException.getParameters(),is(Map.of("personId",personId)));
     }
 
 
@@ -214,7 +214,7 @@ class PersonResourceTest {
         assertThat(personNotFoundException.getTitle(),is("Person is not found"));
         assertThat(personNotFoundException.getDetail(),is("Person with identifier '" + personId + "' is not found"));
         assertThat(personNotFoundException.getCause(),is(nullValue()));
-        assertThat(personNotFoundException.getParameters(),is(Map.of("id",personId)));
+        assertThat(personNotFoundException.getParameters(),is(Map.of("personId",personId)));
     }
 
     @Test
@@ -253,7 +253,7 @@ class PersonResourceTest {
         assertThat(personNotFoundException.getTitle(),is("Person is not found"));
         assertThat(personNotFoundException.getDetail(),is("Person with identifier '" + personId + "' is not found"));
         assertThat(personNotFoundException.getCause(),is(nullValue()));
-        assertThat(personNotFoundException.getParameters(),is(Map.of("id",personId)));
+        assertThat(personNotFoundException.getParameters(),is(Map.of("personId",personId)));
     }
 
 }

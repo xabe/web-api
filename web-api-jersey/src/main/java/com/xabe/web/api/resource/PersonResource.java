@@ -17,6 +17,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Path("/v1/persons")
 @Singleton
@@ -49,21 +51,30 @@ public class PersonResource {
 
     @POST
     public Response createPerson(@Valid PersonPayload personPayload, @Context UriInfo uriInfo) {
-        return this.personService.createPerson(personPayload.toPerson()).map(id ->
-              Response.created(uriInfo.getRequestUriBuilder().path(id).build()).build()
-        ).orElseGet(() -> Response
-                .status(Response.Status.BAD_REQUEST)
-                .type(MediaTypeExt.APPLICATION_PROBLEM_JSON)
-                .entity(Problem
-                        .builder()
-                        .withType(URI.create("http://localhost:21020/problems/non-unique-person"))
-                        .withInstance(uriInfo.getRequestUri())
-                        .withStatus(Status.BAD_REQUEST)
-                        .withTitle("The person is not unique")
-                        .withDetail("Error create person")
-                        .with("id",personPayload.personId)
-                        .build())
-                .build());
+        return this.personService.createPerson(personPayload.toPerson())
+                .map(createResponseSuccessCreate(uriInfo))
+                .orElseGet(createResponseErrorCreate(personPayload.personId, uriInfo));
+    }
+
+    private Function<String,Response> createResponseSuccessCreate(UriInfo uriInfo) {
+        return personId ->  Response.created(uriInfo.getRequestUriBuilder().path(personId).build()).build();
+    }
+
+    private Supplier<Response> createResponseErrorCreate(String personId, UriInfo uriInfo) {
+        return () ->
+            Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .type(MediaTypeExt.APPLICATION_PROBLEM_JSON)
+                    .entity(Problem
+                            .builder()
+                            .withType(URI.create("http://localhost:21020/problems/non-unique-person"))
+                            .withInstance(uriInfo.getRequestUri())
+                            .withStatus(Status.BAD_REQUEST)
+                            .withTitle("The person is not unique")
+                            .withDetail("Error create person")
+                            .with("personId",personId)
+                            .build())
+                    .build();
     }
 
     @Path("{personId}")

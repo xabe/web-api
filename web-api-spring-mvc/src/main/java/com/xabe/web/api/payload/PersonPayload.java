@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xabe.web.api.domain.model.Person;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.util.Optional;
 
 public class PersonPayload {
 
     public String name;
     public String surname;
-    @NotNull
+    @NotEmpty
     public String personId;
 
     public PersonPayload(Person person) {
@@ -40,5 +40,9 @@ public class PersonPayload {
 
     public String getPersonId() {
         return personId;
+    }
+
+    public Person toPerson() {
+        return Person.of(this.name,this.surname,this.personId);
     }
 }

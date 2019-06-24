@@ -49,8 +49,7 @@ public class WebMVCConfig {
             return builder.indentOutput(true).simpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
                     .featuresToDisable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                     .featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-                    .modules(new ProblemModule().withStackTraces())
-                    .modules(new ConstraintViolationProblemModule())
+                    .modulesToInstall(new ProblemModule(), new ConstraintViolationProblemModule())
                     .modulesToInstall(new Class[]{JavaTimeModule.class, Jdk8Module.class, JSR353Module.class});
         }
 

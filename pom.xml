@@ -8,6 +8,7 @@
     <artifactId>web-api-system</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>web-api-helidon</module>
         <module>web-api-jersey</module>
         <module>web-api-spring-mvc</module>
         <module>web-api-domain</module>
@@ -102,6 +103,7 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.4.0-b180830.0438</version>
         </dependency>
+
     </dependencies>
 
     <build>
