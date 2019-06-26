@@ -1,0 +1,23 @@
+FROM maven:3.6-jdk-11-slim
+
+WORKDIR /build
+
+COPY ./pom.xml ./pom.xml
+COPY ./web-api-helidon/pom.xml ./web-api-helidon/pom.xml
+COPY ./web-api-spring-mvc/pom.xml ./web-api-spring-mvc/pom.xml
+COPY ./web-api-jersey/pom.xml   ./web-api-jersey/pom.xml
+COPY ./web-api-domain/pom.xml   ./web-api-domain/pom.xml
+
+# build all dependencies and pack up a blank api jar since webapp depends on it
+RUN mvn -T 1C  dependency:go-offline package -B -e
+
+# copy your other files
+COPY ./web-api-domain/src ./web-api-domain/src
+COPY ./web-api-jersey/src ./web-api-jersey/src
+COPY ./web-api-spring-mvc/src ./web-api-spring-mvc/src
+COPY ./web-api-helidon/src ./web-api-helidon/src
+
+# Clean
+RUN mvn clean
+
+RUN echo "done!"

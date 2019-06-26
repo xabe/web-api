@@ -77,7 +77,7 @@ public class PersonResource {
                     .build();
     }
 
-    @Path("{personId}")
+    @Path("/{personId}")
     @PATCH
     public Response patchPerson(@PathParam("personId") String personId, PersonPayload personPayload, @Context  UriInfo uriInfo) {
         return this.personService.patchPerson(personId, personPayload.toPerson()).
@@ -86,7 +86,7 @@ public class PersonResource {
     }
 
 
-    @Path("{personId}")
+    @Path("/{personId}")
     @PUT
     public Response updatePerson(@PathParam("personId") String personId, PersonPayload personPayload, @Context UriInfo uriInfo) {
         return this.personService.updatePerson(personId, personPayload.toPerson()).
@@ -94,7 +94,7 @@ public class PersonResource {
                 .orElseThrow(() -> new PersonNotFoundException(personId, uriInfo.getRequestUri()));
     }
 
-    @Path("{personId}")
+    @Path("/{personId}")
     @DELETE
     public Response deletePerson(@PathParam("personId")String personId, @Context UriInfo uriInfo) {
         return this.personService.deletePerson(personId).

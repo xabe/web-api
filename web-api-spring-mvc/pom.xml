@@ -6,6 +6,7 @@
         <artifactId>web-api-system</artifactId>
         <groupId>com.xabe</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +18,8 @@
         <app.config.dir>${project.build.outputDirectory}</app.config.dir>
         <tmp.dir>${project.build.directory}${file.separator}logs</tmp.dir>
         <problem-spring-web.version>0.24.0</problem-spring-web.version>
-        <app.name>spring</app.name>
+        <app.name>spring-mvc</app.name>
+        <libs.classpath.prefix>libs</libs.classpath.prefix>
     </properties>
 
     <dependencyManagement>
@@ -172,6 +174,7 @@
 
 
     <build>
+        <finalName>${app.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -230,7 +233,7 @@
                             <goal>stop</goal>
                         </goals>
                     </execution>
-                    <execution>
+                    <!--<execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
@@ -245,6 +248,53 @@
                             </embeddedLaunchScriptProperties>
                             <layout>ZIP</layout>
                         </configuration>
+                    </execution>-->
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>backend</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}${file.separator}${libs.classpath.prefix}</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeScope>test</excludeScope>
+                            <includeScope>compile</includeScope>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>${libs.classpath.prefix}</classpathPrefix>
+                            <mainClass>${main.class}</mainClass>
+                            <useUniqueVersions>false</useUniqueVersions>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

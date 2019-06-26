@@ -3,8 +3,8 @@
 <Configuration shutdownHook="disable">
 
     <Properties>
-        <Property name="APP">${sys:app.log.name}</Property>
-        <Property name="LOGPATH">${sys:app.log.path}</Property>
+        <Property name="APP">${sys:app.log.name:-app}</Property>
+        <Property name="LOGPATH">${sys:app.log.path:-/tmp}</Property>
         <Property name="HOST">${hostName}</Property>
         <Property name="OUTPUTPATTERN">%-5p %d{ISO8601} %x [%t] [%c] %m%n</Property>
     </Properties>

@@ -1,3 +1,19 @@
+## Docker Builder 
+
+Create docker image builder 
+
+docker build -t chabir/web-api-builder -f Dockerfile_build .
+
+docker build -t chabir/web-api-builder:latest --cache-from chabir/web-api-builder:latest -f Dockerfile_build .
+
+docker run -it --rm -v $PWD/target:/build/web-api-jersey/target chabir/web-api-builder mvn test
+
+## Docker builder multistage
+
+docker build --build-arg=framework_select=jersey --no-cache -t chabir/web-api-jersey:latest -f Dockerfile .
+
+docker run --rm -p 8008:8008 -d chabir/web-api-jersey:latest 
+
 ## Call Api
 
 Invoke Options

@@ -33,7 +33,7 @@ public class PersonResource {
         this.personService = personService;
     }
 
-    @RequestMapping(method = OPTIONS, value = "/", produces = {APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON})
+    @RequestMapping(method = OPTIONS, produces = {APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON})
     public ResponseEntity optionsForPersonResource() {
         return ResponseEntity.ok().allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.PATCH, HttpMethod.PUT, HttpMethod.DELETE).build();
     }
@@ -43,7 +43,7 @@ public class PersonResource {
         return this.personService.getPerson(personId).map(PersonPayload::new).orElseThrow(() -> new PersonNotFoundException(personId, ServletUriComponentsBuilder.fromCurrentRequest().build().toUri()));
     }
 
-    @RequestMapping(method = POST, value = "/", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON})
+    @RequestMapping(method = POST, consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE, APPLICATION_PROBLEM_JSON})
     public ResponseEntity createPerson(@RequestBody @Valid PersonPayload personPayload) {
         return this.personService.createPerson(personPayload.toPerson()).
                 map(this::createResponseSuccessCreate).
