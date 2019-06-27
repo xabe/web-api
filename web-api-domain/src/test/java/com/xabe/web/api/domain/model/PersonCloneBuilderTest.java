@@ -24,4 +24,19 @@ class PersonCloneBuilderTest {
         assertThat(result.getPersonId(), is("clone"));
     }
 
+    @Test
+    public void shoudlClonePersonEmpty() throws Exception {
+        //Given
+        final Person person = new Person(null,null,"id");
+
+        //When
+        final Person result = PersonCloneBuilder.clone(person).withPersonId("clone").build();
+
+        //Then
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getName().get(), is(""));
+        assertThat(result.getSurname().get(), is(""));
+        assertThat(result.getPersonId(), is("clone"));
+    }
+
 }

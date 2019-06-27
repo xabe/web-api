@@ -15,8 +15,8 @@ public class PersonPayload {
     public String personId;
 
     public PersonPayload(Person person) {
-        this.name = person.getName().get();
-        this.surname = person.getSurname().get();
+        this.name = person.getName().orElse("");
+        this.surname = person.getSurname().orElse("");
         this.personId = person.getPersonId();
     }
 

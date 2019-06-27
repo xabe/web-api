@@ -8,8 +8,8 @@ public class PersonCloneBuilder extends PersonBuilder {
 
     public static PersonCloneBuilder clone(Person person) {
         final PersonCloneBuilder builder = new PersonCloneBuilder(person.getPersonId());
-        builder.surname = person.getSurname().get();
-        builder.name = person.getName().get();
+        builder.surname = person.getSurname().orElse("");
+        builder.name = person.getName().orElse("");
         return builder;
     }
 
