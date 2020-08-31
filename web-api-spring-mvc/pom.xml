@@ -13,7 +13,7 @@
     <artifactId>web-api-spring-mvc</artifactId>
 
     <properties>
-        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
         <main.class>com.xabe.web.api.App</main.class>
         <app.config.dir>${project.build.outputDirectory}</app.config.dir>
         <tmp.dir>${project.build.directory}${file.separator}logs</tmp.dir>
@@ -158,8 +158,8 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                    <groupId>org.junit.vintage</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
