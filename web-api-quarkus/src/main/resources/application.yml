@@ -1,0 +1,20 @@
+# Configuration file
+# key = value
+quarkus:
+
+  log:
+    console:
+      enable: true
+      level: TRACE
+    category:
+      io.quarkus:
+        level: INFO
+      org.jboss.resteasy:
+        level: DEBUG
+  application:
+    name: quarkus
+  banner:
+    enabled: false
+  http:
+    port: 8008
+    root-path: /api

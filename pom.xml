@@ -12,6 +12,7 @@
         <module>web-api-jersey</module>
         <module>web-api-spring-mvc</module>
         <module>web-api-domain</module>
+        <module>web-api-quarkus</module>
     </modules>
     <packaging>pom</packaging>
 

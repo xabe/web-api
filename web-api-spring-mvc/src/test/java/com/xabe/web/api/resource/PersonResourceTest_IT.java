@@ -20,8 +20,8 @@ public class PersonResourceTest_IT {
     @BeforeEach
     public void setUp() throws Exception {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON_UTF8));
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
         this.httpEntity = new HttpEntity<>(headers);
         this.restTemplate = new TestRestTemplate();
     }
