@@ -17,7 +17,7 @@
         <main.class>com.xabe.web.api.App</main.class>
         <app.config.dir>${project.build.outputDirectory}</app.config.dir>
         <tmp.dir>${project.build.directory}${file.separator}logs</tmp.dir>
-        <problem-spring-web.version>0.24.0</problem-spring-web.version>
+        <problem-spring-web.version>0.25.2</problem-spring-web.version>
         <app.name>spring-mvc</app.name>
         <libs.classpath.prefix>libs</libs.classpath.prefix>
     </properties>
@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.4.redhat-00001</version>
         </dependency>
 
         <!-- SLF4J -->
