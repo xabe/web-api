@@ -73,7 +73,7 @@ class ValidationExceptionMapperTest {
         //Given
         final Path path = PathImpl.createPathFromString("personId");
         final ConstraintViolation<?> constraintViolation = ConstraintViolationImpl.forBeanValidation("error", Map.of(),Map.of(),"interpolatedMessage", PersonPayload.class,new PersonPayload("","",""),null,null, path
-                ,null,null,null);
+                ,null,null);
         final ValidationException validationException = new ConstraintViolationException(Set.of(constraintViolation));
         final URI uri = URI.create("http://localhost:9000/api/persons/");
         when(uriInfo.getRequestUri()).thenReturn(uri);

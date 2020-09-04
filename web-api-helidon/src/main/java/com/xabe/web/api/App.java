@@ -13,6 +13,7 @@ import io.helidon.config.Config;
 import io.helidon.health.HealthSupport;
 import io.helidon.health.checks.HealthChecks;
 import io.helidon.media.jackson.server.JacksonSupport;
+import io.helidon.metrics.MetricsSupport;
 import io.helidon.webserver.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,17 +65,20 @@ public class App {
                 .registerModule(new ProblemModule())
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        final JacksonSupport jacksonSupport = JacksonSupport.create((request, response) -> mapper);
+        final JacksonSupport jacksonSupport = JacksonSupport.create((serverRequest, serverResponse) -> mapper);
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         final Validator validator = factory.getValidator();
         final PersonService personService = new PersonServiceImpl();
         final Service resource = new PersonResource(validator, personService);
+        final MetricsSupport metrics = MetricsSupport.create();
         final HealthSupport health = HealthSupport.builder()
-                .add(HealthChecks.healthChecks())   // Adds a convenient set of checks
+                .addLiveness(HealthChecks.healthChecks())   // Adds a convenient set of checks
                 .build();
+
         return Routing.builder()
                 .register(jacksonSupport)
                 .register(health)
+                .register(metrics)
                 .error(AbstractThrowableProblem.class, App::problem)
                 .error(ValidationException.class, App::validation)
                 .register("/api", resource)
